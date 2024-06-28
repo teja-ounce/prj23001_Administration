@@ -58,6 +58,8 @@ public class AdminHomePage extends Base {
 	@FindBy(xpath = "//*[@id='simple-menu']/div[3]/ul/li[3]")
 	public WebElement logoutButton;
 	
+	@FindBy(xpath = "//*[@id='customTableTitle']/tfoot/tr/td/div/p[2]")
+	public WebElement targetPage;
 	 
 	public String verifyCount = "//*[@id='customTableTitle']/tfoot/tr/td/div/p[2]";
 	
@@ -240,6 +242,7 @@ public class AdminHomePage extends Base {
 			            Thread.sleep(3000);
 
 			            // Validate the count on the new page
+			            if(targetPage.isDisplayed()) {
 			            WebElement count = driver.findElement(By.xpath(verifyCount)); // Update with the correct XPath
 			            String[] number = count.getText().split(" of ");
 			            String totalCount = number[1];
@@ -248,16 +251,22 @@ public class AdminHomePage extends Base {
 			            if (totalCount.equals(secondCellData)) {
 			                System.out.println("Data matched");
 			                Thread.sleep(2000);
+			                driver.navigate().back();
 			            } else {
 			                System.out.println("Count mismatch ");
 			                Thread.sleep(2000);
+			                driver.navigate().back();
 			            }
-
-			            // Navigate back and re-fetch the elements
+			            }
+			            else {
+			            System.out.println("Deatils not found");
 			            driver.navigate().back();
 			            Thread.sleep(3000);
+			            }
+			            }
 			        }
 			    }
 			}
 
-}
+
+
