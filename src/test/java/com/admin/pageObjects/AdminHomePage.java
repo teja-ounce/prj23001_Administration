@@ -21,7 +21,7 @@ public class AdminHomePage extends Base {
 	public Long users;
 
 	private int i;
-	
+
 	public String secondCellData;
 	public WebElement cell;
 
@@ -57,12 +57,22 @@ public class AdminHomePage extends Base {
 
 	@FindBy(xpath = "//*[@id='simple-menu']/div[3]/ul/li[3]")
 	public WebElement logoutButton;
-	
+
 	@FindBy(xpath = "//*[@id='customTableTitle']/tfoot/tr/td/div/p[2]")
 	public WebElement targetPage;
-	 
-	public String verifyCount = "//*[@id='customTableTitle']/tfoot/tr/td/div/p[2]";
 	
+	
+
+	public String verifyCount = "//*[@id='customTableTitle']/tfoot/tr/td/div/p[2]";
+
+	@FindBy(xpath = "//*[@id='customTableTitle']/tfoot/tr/td/div/p[2]")
+	public WebElement targetPageCount;
+	
+	@FindBy(xpath = "//*[@id='single-spa-application:@flc/admin-app']/div/div[2]/div/div[2]/div/div/span/span")
+	public WebElement targetPageHeader;
+
+	@FindBy(linkText = "Home")
+	public WebElement homeLink;
 
 	@FindBy(xpath = "//*[@id='single-spa-application:@flc/admin-app']/div/div[2]/div/div[2]/div[2]/div/div[2]/div/div")
 	List<WebElement> tablesCount;
@@ -72,10 +82,9 @@ public class AdminHomePage extends Base {
 
 	@FindBy(xpath = "//*[@id='single-spa-application:@flc/admin-app']/div/div[2]/div/div[2]/div[2]/div/div/div/div/div/div/div[2]/table/tbody")
 	List<WebElement> tablesData;
-	
-	@FindBy(xpath ="//*[@id='single-spa-application:@flc/admin-app']/div/div[2]/div/div[2]/div[2]/div/div/div/div/div/div/div[1]/h1")
-	List<WebElement> noOfTables; 
-	
+
+	@FindBy(xpath = "//*[@id='single-spa-application:@flc/admin-app']/div/div[2]/div/div[2]/div[2]/div/div/div/div/div/div/div[1]/h1")
+	List<WebElement> noOfTables;
 
 	List<String> stringData;
 	List<Integer> numberData;
@@ -83,13 +92,6 @@ public class AdminHomePage extends Base {
 	public AdminHomePage(WebDriver driver) {
 		super(driver);
 	}
-
-//	public static void main(String args[]) {
-//	String	numberOfUsers = "1 of 34";
-//		String numberText = numberOfUsers.replaceAll(".* of (\\d+).*", "$1");
-//		System.out.println(Long.parseLong(numberText));
-//		
-//	}
 
 	public void clickProfileButton() throws InterruptedException {
 		adminProfileButton.click();
@@ -206,7 +208,6 @@ public class AdminHomePage extends Base {
 		int tables = noOfTables.size();
 		System.out.println("Number of tables: " + tables);
 		for (int i = 1; i <= tables; i++) {
-			// Construct XPath for each table's header and data dynamically
 			String tableHeaderXPath = "//*[@id='single-spa-application:@flc/admin-app']/div/div[2]/div/div[2]/div[2]/div/div/div/div["
 					+ i + "]/div/div/div[1]/h1";
 			String tableDataXPath = "//*[@id='single-spa-application:@flc/admin-app']/div/div[2]/div/div[2]/div[2]/div/div/div/div["
@@ -220,53 +221,64 @@ public class AdminHomePage extends Base {
 			List<WebElement> rows = driver.findElements(By.xpath(tableDataXPath));
 			System.out.println("Total number of roles in " + tableHeader.getText() + ": " + rows.size());
 
-			
-			  
-			        // Iterate through each row to extract cell data
-			        for (int j = 0; j < rows.size(); j++) {
-			            // Re-fetch the rows to avoid StaleElementReferenceException
-			            rows = driver.findElements(By.xpath(tableDataXPath));
-			            WebElement row = rows.get(j);
+			// Iterate through each row to extract cell data
+			for (int j = 0; j < rows.size(); j++) {
+				System.out.println("J loop");
+				
+				// Re-fetch the rows to avoid StaleElementReferenceException
+				rows = driver.findElements(By.xpath(tableDataXPath));
+				WebElement row = rows.get(j);
 
-			            List<WebElement> cells = row.findElements(By.tagName("td"));
-			            StringBuilder rowData = new StringBuilder();
-			            for (WebElement cell : cells) {
-			                rowData.append(cell.getText()).append(" ");
-			            }
-			            String firstCell = cells.get(0).getText();
-			            String secondCellData = cells.get(1).getText();
-			            System.out.println(firstCell+" : "+ secondCellData);
+				List<WebElement> cells = row.findElements(By.tagName("td"));
+				StringBuilder rowData = new StringBuilder();
+				for (WebElement cell : cells) {
+					rowData.append(cell.getText()).append(" ");
+				}
+				String firstCell = cells.get(0).getText();
+				String secondCellData = cells.get(1).getText();
+				System.out.println(firstCell + " : " + secondCellData);
+				row.click();
+				Thread.sleep(1000);
+				if (isTargetPageDisplayed()) {
+					WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+					wait.until(ExpectedConditions.elementToBeClickable(targetPageCount));
 
-			            // Click the row to navigate
-			            row.click();
-			            Thread.sleep(3000);
-
-			            // Validate the count on the new page
-			            if(targetPage.isDisplayed()) {
-			            WebElement count = driver.findElement(By.xpath(verifyCount)); // Update with the correct XPath
-			            String[] number = count.getText().split(" of ");
-			            String totalCount = number[1];
-			            System.out.println("Total count after navigating: " + totalCount);
-
-			            if (totalCount.equals(secondCellData)) {
-			                System.out.println("Data matched");
-			                Thread.sleep(2000);
-			                driver.navigate().back();
-			            } else {
-			                System.out.println("Count mismatch ");
-			                Thread.sleep(2000);
-			                driver.navigate().back();
-			            }
-			            }
-			            else {
-			            System.out.println("Deatils not found");
-			            driver.navigate().back();
-			            Thread.sleep(3000);
-			            }
-			            }
-			        }
-			    }
+					WebElement count = driver.findElement(By.xpath(verifyCount)); // Update with the correct XPath
+					String[] number = count.getText().split(" of ");
+					String totalCount = number[1];
+					System.out.println("Total count after navigating: " + totalCount);
+					
+					if (totalCount.equals(secondCellData)) {
+						driver.navigate().back();
+						WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(30));
+						wait1.until(ExpectedConditions.elementToBeClickable(homeLink));
+						System.out.println("2st if");
+					} else {
+						System.out.println("Count mismatch ");
+						driver.navigate().back();
+						WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(30));
+						wait2.until(ExpectedConditions.elementToBeClickable(homeLink));
+					}
+				} else {
+					System.out.println("Deatils not found");
+					driver.navigate().back();
+					WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(30));
+					wait2.until(ExpectedConditions.elementToBeClickable(homeLink));
+				}
 			}
+		}
+	}
+		private boolean isTargetPageDisplayed() {
+	        try {
+	            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	            WebElement targetPageElement = wait.until(ExpectedConditions.visibilityOf(targetPageHeader));
+	            return targetPageElement.isDisplayed();
+	        } catch (Exception e) {
+	            System.out.println("Target page not displayed: " + e.getMessage());
+	            return false;
+	        }
+		}
+}
 
 
 
