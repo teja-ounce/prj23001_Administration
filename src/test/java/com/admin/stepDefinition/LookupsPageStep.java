@@ -7,8 +7,6 @@ public class LookupsPageStep {
 	
 	@When("Clicks on lookups tab")
 	public void clicks_on_lookups_tab() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
 	}
 	@Then("Lookups tab will display")
 	public void lookups_tab_will_display() {
