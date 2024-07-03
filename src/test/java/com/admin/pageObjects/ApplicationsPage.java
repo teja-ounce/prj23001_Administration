@@ -61,10 +61,10 @@ public class ApplicationsPage extends Base {
 	@FindBy(xpath = "//*[@id='single-spa-application:@flc/admin-app']/div/div[2]/div/div[3]/div/div/div[1]/div/div[3]/button")
 	public WebElement addUserButton;
 
-	@FindBy(xpath = "//*[@id='applicationRoleModel']/div[1]/div/div[1]/div/div/div/div")
+	@FindBy(xpath = "//*[@id='user']")
 	public WebElement userDropdown;
 
-	@FindBy(xpath = "//*[@id='applicationRoleModel']/div[1]/div/div[2]/div/div/div/div")
+	@FindBy(xpath = "//*[@id='role']")
 	public WebElement roleDropdown;
 
 	@FindBy(xpath = "//*[@id='applicationRoleModel']/div[2]/button[1]")
@@ -90,11 +90,14 @@ public class ApplicationsPage extends Base {
 	@FindBy(name = "roleDescription")
 	public WebElement roleDescription;
 
-	@FindBy(xpath = "//*[@id='messageGroupModel/]/div[1]/div/div[4]/div/div/div/div")
+	@FindBy(xpath = "//*[@id='menuId']")
 	public WebElement selectMenu;
 
-	@FindBy(xpath = "//*[@id='messageGroupModel']/div[2]/button[1]")
+	@FindBy(xpath = "//*[@id='single-spa-application:@flc/admin-app']/div/div[2]/div/div[3]/div/div/div[1]/div/div[2]/button")
 	public WebElement addNewRoleButton;
+	
+	@FindBy(xpath = "//*[@id='messageGroupModel']/div[2]/button[1]")
+	public WebElement createRoleButton;
 
 	@FindBy(xpath = "//*[@id='customTableTitle']/tbody/tr[1]/td[11]/div/button[2]")
 	public WebElement deleteButton;
@@ -105,8 +108,8 @@ public class ApplicationsPage extends Base {
 	public void clickApplications() throws InterruptedException {
 
 		applicationsLink.click();
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-		wait.until(ExpectedConditions.elementToBeClickable(AddApplicationButton));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(searchBox));
 	}
 
 	public void clickAddApplicationButton() throws InterruptedException {
@@ -123,91 +126,33 @@ public class ApplicationsPage extends Base {
 		applicationIconPath.sendKeys("/assets/imgs/appIcons/administration.png");
 		applicationVersion.sendKeys("V.1.0");
 		applicationOrder.sendKeys("9");
-		
 
 	}
 
 	public void clickApplicationSaveButton() throws InterruptedException {
 		applicationSaveButton.click();
-		Thread.sleep(2000);
-	}
-
-	public void clickGotoUsersButton() throws InterruptedException {
-		goToUsersButton.click();
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-		wait.until(ExpectedConditions.elementToBeClickable(Header));
-	}
-
-	public void readHeader() {
-		System.out.println("We are in : " + Header.getText());
-	}
-
-	public void clickAddUserButton() throws InterruptedException {
-		addUserButton.click();
-		Thread.sleep(2000);
-	}
-
-	public void fillUserFields() throws InterruptedException {
-		userDropdown.click();
-		Thread.sleep(1000);
-		userDropdown.sendKeys(Keys.ARROW_DOWN);
-		userDropdown.sendKeys(Keys.ENTER);
-		roleDropdown.click();
-		Thread.sleep(1000);
-		roleDropdown.sendKeys(Keys.ARROW_DOWN);
-		roleDropdown.sendKeys(Keys.ENTER);
-	}
-
-	public void clickUserSaveButton() throws InterruptedException {
-		saveUserButton.click();
-		Thread.sleep(3000);
-	}
-
-	public void goBack() throws InterruptedException {
-		driver.navigate().back();
-		Thread.sleep(3000);
-	}
-
-	public void readApplicationHeader() throws InterruptedException {
-
-		System.out.println("We are in :  " + applicationsPageHeader.getText());
+		Thread.sleep(4000);
 		searchBox.sendKeys("Testing");
 		Thread.sleep(2000);
 	}
-
-	public void clickGotoRolesButton() throws InterruptedException {
-		goToRoles.click();
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-		wait.until(ExpectedConditions.elementToBeClickable(rolesHeader));
-	}
-
-	public void readRoleHeader() {
-		System.out.println("We are in : " + rolesHeader.getText());
-	}
-
-	public void fillRoleData() throws InterruptedException {
-		role.sendKeys("Quality Analyst");
-		roleName.sendKeys("Automation Tester");
-		roleDescription.sendKeys("Do both manual and automation");
-		selectMenu.click();
-		Thread.sleep(1000);
-		selectMenu.sendKeys(Keys.ARROW_DOWN);
-		selectMenu.sendKeys(Keys.ENTER);
-	}
-
-	public void clickAddRoleButton() throws InterruptedException {
-		selectMenu.click();
-		Thread.sleep(3000);
-	}
-
-	public void delete() throws InterruptedException {
-		applicationsLink.click();
-		Thread.sleep(3000);
-		searchBox.sendKeys("Testing");
-		Thread.sleep(2000);
-		deleteButton.click();
-		deleteConfirmButton.click();
-		Thread.sleep(7000);
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
