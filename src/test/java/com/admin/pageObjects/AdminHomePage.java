@@ -60,14 +60,12 @@ public class AdminHomePage extends Base {
 
 	@FindBy(xpath = "//*[@id='customTableTitle']/tfoot/tr/td/div/p[2]")
 	public WebElement targetPage;
-	
-	
 
 	public String verifyCount = "//*[@id='customTableTitle']/tfoot/tr/td/div/p[2]";
 
 	@FindBy(xpath = "//*[@id='customTableTitle']/tfoot/tr/td/div/p[2]")
 	public WebElement targetPageCount;
-	
+
 	@FindBy(xpath = "//*[@id='single-spa-application:@flc/admin-app']/div/div[2]/div/div[2]/div/div/span/span")
 	public WebElement targetPageHeader;
 
@@ -223,8 +221,7 @@ public class AdminHomePage extends Base {
 
 			// Iterate through each row to extract cell data
 			for (int j = 0; j < rows.size(); j++) {
-				System.out.println("J loop");
-				
+
 				// Re-fetch the rows to avoid StaleElementReferenceException
 				rows = driver.findElements(By.xpath(tableDataXPath));
 				WebElement row = rows.get(j);
@@ -247,12 +244,11 @@ public class AdminHomePage extends Base {
 					String[] number = count.getText().split(" of ");
 					String totalCount = number[1];
 					System.out.println("Total count after navigating: " + totalCount);
-					
+
 					if (totalCount.equals(secondCellData)) {
 						driver.navigate().back();
 						WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(30));
 						wait1.until(ExpectedConditions.elementToBeClickable(homeLink));
-						System.out.println("2st if");
 					} else {
 						System.out.println("Count mismatch ");
 						driver.navigate().back();
@@ -268,17 +264,15 @@ public class AdminHomePage extends Base {
 			}
 		}
 	}
-		private boolean isTargetPageDisplayed() {
-	        try {
-	            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	            WebElement targetPageElement = wait.until(ExpectedConditions.visibilityOf(targetPageHeader));
-	            return targetPageElement.isDisplayed();
-	        } catch (Exception e) {
-	            System.out.println("Target page not displayed: " + e.getMessage());
-	            return false;
-	        }
+
+	private boolean isTargetPageDisplayed() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			WebElement targetPageElement = wait.until(ExpectedConditions.visibilityOf(targetPageHeader));
+			return targetPageElement.isDisplayed();
+		} catch (Exception e) {
+			System.out.println("Target page not displayed: " + e.getMessage());
+			return false;
 		}
+	}
 }
-
-
-

@@ -7,15 +7,15 @@ Feature: Verify applications page
     Then Dashboard should display
     When User clicks on adminstration app
     Then home page should display with active users
-    And User clicks on applications page
 
   @AddApplication
   Scenario: Verify add application
-    When User clicks on add application button
+    When User clicks on applications page
+    And User clicks on add application button
     And User fill all application details
-    And User click on save button
+    And User click on application save button
     Then Application will add successfully
-    Then User should logout
+    Then User get logout
 
   @AddMenu
   Scenario: Verify add Menu
@@ -24,25 +24,25 @@ Feature: Verify applications page
     And User fill menu fields
     And Click on add menu button
     Then Menu will add successfully
-    Then User should logout
+    Then User get logout
 
   @AddUser
   Scenario: Verify add Users
     When User click on users menu
     And User click on add User button
     And Fill all user fields
-    And User clicks on save button
+    And Clicks on user save button
     Then User will add successfully
-    Then User should logout
+    Then User get logout
 
   @AddRole
   Scenario: Verify add role
     When User clicks on roles
     And User click on add role button
     And User fill role data
-    And Click on save button
+    And Click on role save button
     Then Role will add successfully
-    Then User should logout
+    Then User get logout
 
   @VerifyAddedData
   Scenario: Verify data in applications page
@@ -60,10 +60,7 @@ Feature: Verify applications page
     When User navigate to Users page
     And Search for added user
     Then Delete the user
-    When User navigate to roles page
-    And Search for added role
-    Then Delete the role
     When User navigate to menus page
     And Search for added menu
     And Delete the menu
-    Then User will logout
+    Then User get logout

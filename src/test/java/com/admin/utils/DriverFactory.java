@@ -17,6 +17,8 @@ public class DriverFactory {
 			driver = new EdgeDriver();
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			driver.manage().window().maximize();
+			driver.navigate().refresh();
+			driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 		}
 		return driver;
 	}
