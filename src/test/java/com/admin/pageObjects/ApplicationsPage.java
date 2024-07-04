@@ -474,7 +474,9 @@ public class ApplicationsPage extends Base {
 		deleteMenuButton.click();
 		Thread.sleep(1000);
 		confirmDeleteButton.click();
-		Thread.sleep(7000);
+		Thread.sleep(2000);
+		driver.navigate().refresh();
+		Thread.sleep(3000);
 	}
 public void logoutAdminApp() throws InterruptedException {
 	

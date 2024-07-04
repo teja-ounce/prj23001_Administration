@@ -115,7 +115,7 @@ public class LookupsPage extends Base {
 		saveLookupButton.click();
 		Thread.sleep(3000);
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.elementToBeClickable(lookupsTabHeader));
+		wait.until(ExpectedConditions.elementToBeClickable(addedLookup));
 	}
 
 	public void verifyLookup() throws InterruptedException {
@@ -154,7 +154,7 @@ public class LookupsPage extends Base {
 		lookupValueSaveButton.click();
 		Thread.sleep(3000);
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.elementToBeClickable(lookupValuesHeader));
+		wait.until(ExpectedConditions.elementToBeClickable(addedLookupValue));
 	}
 
 	public void verifyLoookupValue() throws InterruptedException {

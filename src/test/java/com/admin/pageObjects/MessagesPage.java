@@ -86,7 +86,7 @@ public class MessagesPage extends Base {
 	}
 
 	public void verifyMessage() throws InterruptedException {
-		searchBox.sendKeys("Testing purpose	");
+		searchBox.sendKeys("Testing purpose");
 		Thread.sleep(2000);
 		if (addedMessage.getText().contains("APPLICATION_TESTED_SUCCESSFULLY")) {
 			System.out.println(addedMessage.getText() + ":  Message added successfully...");
