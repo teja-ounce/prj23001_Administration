@@ -11,7 +11,7 @@ agent {
         }
         stage('Build') {
             steps {
-                dir('C:\Proounce Project\prj23001_Administration') {
+                dir('C:/Proounce Project/prj23001_Administration') {
                     bat 'mvn clean'
                 }
             }
