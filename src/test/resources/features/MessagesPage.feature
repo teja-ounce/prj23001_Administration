@@ -1,6 +1,7 @@
 Feature: Verify Messages page
 
   Scenario: Verify messages
+    Given User launch URL
     When User enters username and password
     And User clicks on login button
     Then Dashboard should display

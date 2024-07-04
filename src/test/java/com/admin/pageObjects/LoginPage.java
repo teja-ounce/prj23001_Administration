@@ -38,9 +38,8 @@ public class LoginPage extends Base {
 	
 	public void openURL() {
 		driver.navigate().to(baseURL);
-		driver.manage().window().maximize();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		wait.until(ExpectedConditions.visibilityOf(usernameField));
+		wait.until(ExpectedConditions.elementToBeClickable(usernameField));
 	}
 
 	public void enterUsername() {
