@@ -119,7 +119,7 @@ public class LookupsPage extends Base {
 	}
 
 	public void verifyLookup() throws InterruptedException {
-		searchBox.sendKeys("Testing");
+		searchBox.sendKeys("Testing purpose");
 		Thread.sleep(2000);
 		if (addedLookup.getText().contains("Testing")) {
 			System.out.println(addedLookup.getText() + ":  Lookup added successfully...");

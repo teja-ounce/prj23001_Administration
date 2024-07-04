@@ -19,7 +19,7 @@ public class LoginPageStep {
 	private LoginPage loginPage = new LoginPage(driver);
 
 	@Given("User launch URL")
-	public void user_launch_url() {
+	public void user_launch_url() throws InterruptedException {
 		loginPage.openURL();
 	}
 

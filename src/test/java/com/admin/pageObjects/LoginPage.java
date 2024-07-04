@@ -36,8 +36,10 @@ public class LoginPage extends Base {
 	public WebElement fiveYearPlanButton;
 
 	
-	public void openURL() {
+	public void openURL() throws InterruptedException {
 		driver.navigate().to(baseURL);
+		driver.navigate().refresh();
+		Thread.sleep(2000);
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.elementToBeClickable(usernameField));
 	}
