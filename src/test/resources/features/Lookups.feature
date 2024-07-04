@@ -12,4 +12,9 @@ Feature: Verify lookups page
     And Fill all lookup details
     And Click on lookup save button
     Then Lookup will add successfully
+    When User clicks on lookupList button
+    And Click on add lookup value button
+    And Fill lookup value details
+    And Click on lookup value save button
+    Then Lookup values will add successfully
     Then User get logout
