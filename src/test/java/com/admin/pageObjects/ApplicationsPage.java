@@ -437,6 +437,7 @@ public class ApplicationsPage extends Base {
 		Thread.sleep(1000);
 		confirmDeleteButton.click();
 		Thread.sleep(2000);
+		driver.navigate().refresh();
 	}
 
 	public void navigateToRoles() {
@@ -460,7 +461,7 @@ public class ApplicationsPage extends Base {
 	public void navigateToMenus() {
 		menusTab.click();
 		WebDriverWait wait3 = new WebDriverWait(driver, Duration.ofSeconds(20));
-		wait3.until(ExpectedConditions.elementToBeClickable(menusHeader));
+		wait3.until(ExpectedConditions.elementToBeClickable(addedMenuName));
 	}
 
 	public void searchForMenu() throws InterruptedException {
